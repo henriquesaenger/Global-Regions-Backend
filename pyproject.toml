@@ -1,5 +1,5 @@
 [project]
-name = "global-regions"
+name = "plone-global-regions"
 dynamic = ["version"]
 description = "Named global block regions for Plone sites"
 readme = "README.md"

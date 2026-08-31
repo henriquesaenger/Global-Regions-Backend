@@ -3,7 +3,7 @@
 from zope.i18nmessageid import MessageFactory
 
 
-__version__ = "1.0.0"
+__version__ = "0.1.0"
 
 PACKAGE_NAME = "global_regions"
 _ = MessageFactory(PACKAGE_NAME)
