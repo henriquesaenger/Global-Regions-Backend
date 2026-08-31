@@ -1,0 +1,25 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="global_regions"
+    >
+
+  <include
+      package="plone.behavior"
+      file="meta.zcml"
+      />
+  <include package="plone.restapi" />
+
+  <include file="profiles.zcml" />
+
+  <plone:behavior
+      name="global_regions.global_block_regions"
+      title="Global Block Regions"
+      description="Adds named global block regions."
+      provides=".behaviors.IGlobalBlockRegions"
+      />
+
+  <adapter factory=".restapi.GlobalRegionsJSONFieldSerializer" />
+  <adapter factory=".restapi.GlobalRegionsJSONFieldDeserializer" />
+
+</configure>

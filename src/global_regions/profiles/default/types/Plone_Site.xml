@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<object
+    meta_type="Dexterity FTI"
+    name="Plone Site"
+    >
+  <property
+      name="behaviors"
+      purge="false"
+      >
+    <element value="global_regions.global_block_regions" />
+  </property>
+</object>
