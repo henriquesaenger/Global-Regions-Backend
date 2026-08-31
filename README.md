@@ -39,7 +39,7 @@ Add the package to your backend project dependencies:
 dependencies = [
     "Products.CMFPlone>=6.1.1,<6.2",
     "plone.restapi>=9.13.3,<10",
-    "global-regions",
+    "plone-global-regions",
 ]
 ```
 
@@ -48,7 +48,7 @@ For a local checkout, declare it as an editable source. For example, with
 
 ```toml
 [tool.uv.sources]
-global-regions = { path = "../Global Regions Backend", editable = true }
+plone-global-regions = { path = "../Global Regions Backend", editable = true }
 ```
 
 Rebuild the backend environment, restart the Plone instance, and install
