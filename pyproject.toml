@@ -38,6 +38,7 @@ test = [
 
 [project.entry-points."plone.autoinclude.plugin"]
 target = "plone"
+module = "global_regions"
 
 [build-system]
 requires = ["hatchling"]
