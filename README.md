@@ -16,8 +16,10 @@ the standard Plone REST API with `GET` and `PATCH`.
 
 - Dexterity behavior `global_regions.global_block_regions`, applied only to
   the **Plone Site** FTI
-- One optional JSON field, `global_regions`
-- Any number of named regions, each containing a Volto-compatible block layout
+- One internal JSON persistence field, `global_regions`; consuming projects
+  do not create a backend field for each instance
+- Any number of independently named instances, each containing a
+  Volto-compatible block layout
 - Nested block values processed by `plone.restapi` block transformers
   (for example, internal-link `resolveuid` conversion)
 - GenericSetup install and uninstall profiles
@@ -70,6 +72,10 @@ After installation, the Plone Site provides `IGlobalBlockRegions`. Its
 The field is a mapping from a project-defined region name to a
 Volto-compatible block document:
 
+Instance names have no meaning to this package. They are declared only by the
+consuming project, and saving one instance must preserve every sibling in the
+collection.
+
 ```json
 {
   "global_regions": {
@@ -93,9 +99,10 @@ Volto-compatible block document:
 }
 ```
 
-Region names are not prescribed by this package. A theme may, for example,
-expose regions named `header` and `footer`; they are ordinary entries in the
-same collection, not special backend fields.
+Region names are defined exclusively by the consuming project. For example, a
+site may name two instances `header` and `footer`; these names are only usage
+examples and have no special meaning, fields, or behavior inside this package.
+Any other names and any number of instances are supported.
 
 Each region must contain:
 

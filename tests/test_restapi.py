@@ -99,6 +99,51 @@ def test_standard_root_get_patch_round_trip(functional):
         session.close()
 
 
+def test_updating_one_instance_preserves_siblings_order_and_false_values(
+    functional,
+):
+    portal = functional["portal"]
+    transaction.commit()
+    session = RelativeSession(portal.absolute_url())
+    session.headers.update({"Accept": "application/json"})
+    session.auth = (SITE_OWNER_NAME, SITE_OWNER_PASSWORD)
+
+    try:
+        instances = {
+            "first-instance": {
+                "blocks": {
+                    "one": {"@type": "custom", "visible": True},
+                },
+                "blocks_layout": {"items": ["one"]},
+            },
+            "second-instance": {
+                "blocks": {
+                    "two": {"@type": "custom", "visible": True},
+                },
+                "blocks_layout": {"items": ["two"]},
+            },
+        }
+        response = session.patch("", json={"global_regions": instances})
+        assert response.status_code == 204
+
+        stored = session.get("").json()["global_regions"]
+        stored["first-instance"] = {
+            "blocks": {
+                "one": {"@type": "custom", "visible": False},
+                "three": {"@type": "custom", "enabled": False},
+            },
+            "blocks_layout": {"items": ["three", "one"]},
+        }
+        response = session.patch("", json={"global_regions": stored})
+        assert response.status_code == 204
+
+        persisted = session.get("").json()["global_regions"]
+        assert persisted["first-instance"] == stored["first-instance"]
+        assert persisted["second-instance"] == instances["second-instance"]
+    finally:
+        session.close()
+
+
 def test_partial_patch_can_return_updated_representation(functional):
     portal = functional["portal"]
     transaction.commit()

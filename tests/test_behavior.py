@@ -1,6 +1,5 @@
 from global_regions.behaviors import IGlobalBlockRegions
 from zope.schema.interfaces import ConstraintNotSatisfied
-from zope.schema.interfaces import WrongContainedType
 
 import pytest
 
@@ -47,10 +46,10 @@ def test_schema_accepts_arbitrary_region_names_and_block_types():
 def test_schema_requires_blocks_and_blocks_layout_for_each_region():
     field = IGlobalBlockRegions["global_regions"]
 
-    with pytest.raises(WrongContainedType):
+    with pytest.raises(ConstraintNotSatisfied):
         field.validate({"site-navigation": {"blocks": {}}})
 
-    with pytest.raises(WrongContainedType):
+    with pytest.raises(ConstraintNotSatisfied):
         field.validate({"site-navigation": {"blocks_layout": {"items": []}}})
 
 
