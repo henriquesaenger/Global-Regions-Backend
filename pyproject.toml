@@ -50,6 +50,12 @@ path = "src/global_regions/__init__.py"
 [tool.hatch.build]
 strict-naming = true
 
+[tool.hatch.build.targets.sdist]
+include = [
+    "/src",
+    "/tests",
+]
+
 [tool.hatch.build.targets.wheel]
 packages = ["src/global_regions"]
 
